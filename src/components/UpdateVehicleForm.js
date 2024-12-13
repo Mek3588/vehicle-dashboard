@@ -10,7 +10,7 @@ function UpdateVehicleForm({ vehicle, onVehicleUpdated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://vehicle-backend-1-gk28.onrender.com/vehicles/${vehicle._id}`, { name, status }); // Updated URL
+      await axios.put(`http://localhost:3001/vehicles/${vehicle._id}`, { name, status });
       onVehicleUpdated();
     } catch (error) {
       console.error('Error updating vehicle:', error);

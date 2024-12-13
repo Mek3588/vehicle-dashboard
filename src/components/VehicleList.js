@@ -1,6 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function VehicleList({ vehicles, onEdit }) {
+function VehicleList({ onEdit }) {
+  const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState(true);  // Loading state
+
+  useEffect(() => {
+    // Fetch vehicles data from backend
+    const fetchVehicles = async () => {
+      try {
+        const response = await axios.get('https://vehicle-backend-1-gk28.onrender.com/vehicles');
+        setVehicles(response.data);  // Set the fetched data
+      } catch (error) {
+        console.error('Error fetching vehicles:', error);
+      } finally {
+        setLoading(false);  // Set loading to false after fetch is complete
+      }
+    };
+
+    fetchVehicles();  // Trigger data fetch on component mount
+  }, []);
+
+  // If still loading, display loading indicator or message
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Once data is loaded, display the table
   return (
     <div className="mt-6">
       <table className="table-auto w-full border-collapse border border-gray-300 shadow-md">
