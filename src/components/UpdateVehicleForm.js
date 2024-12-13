@@ -12,6 +12,7 @@ function UpdateVehicleForm({ vehicle, onVehicleUpdated }) {
     try {
       await axios.put(`http://localhost:3001/vehicles/${vehicle._id}`, { name, status });
       onVehicleUpdated();
+      window.location.reload();
     } catch (error) {
       console.error('Error updating vehicle:', error);
     }
